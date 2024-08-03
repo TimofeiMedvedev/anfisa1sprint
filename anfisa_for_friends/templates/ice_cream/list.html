@@ -1,19 +1,87 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
   Анфиса для друзей. Каталог мороженого
 {% endblock %}
 {% block content %}
-  <h1>Каталог мороженого</h1>
-  <ul>
-    {% for ice_cream in ice_cream_list %}
-      <li>
-        <h3>{{ ice_cream.title }}</h3>
-        <p>{{ ice_cream.description|truncatewords:10 }}</p>
-        <a href="{% url 'ice_cream:ice_cream_detail' ice_cream.id %}">подробнее</a>
-      </li>
-      {% if not forloop.last %}
-        <hr>
-      {% endif %}
-    {% endfor %}
-  </ul>
-{% endblock %}
+<h1 class="pb-2 mb-0">Каталог мороженого</h1>
+  <div class="row">
+  <!-- Начинается перебор мороженого  в цикле -->
+  {% for ice_cream in ice_cream_list %}
+    <!-- Карточка товара 0 -->
+    {% if forloop.first %}  
+      <div class="col-6 col-md-4 my-1">
+        <div class="card">
+        <!-- Картинку берём из статики -->
+          <img 
+            class="img-fluid card-img-top" 
+            height="400" width="300"
+            src="{% static 'img/image-holder.png' %}"
+          >
+          <div class="card-body">           
+            <h5 class="card-title">Классический пломбир</h5>
+            <p class="card-text">
+            <!-- Описание обрезано до первых 10ти слов -->
+              {{ ice_cream.description|truncatewords:10 }}
+            </p>
+            <!-- Ссылка на товар 0 -->
+            <a class="mt-3 regular-link" href="{% url 'ice_cream:ice_cream_detail' ice_cream.id %}">
+              Подробнее -->           
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <!-- Конец карточки товара 0 -->
+    <!-- Карточка товара 1 -->
+    {% if ice_cream.id == 1 %}
+      <div class="col-6 col-md-4 my-1">
+        <div class="card">                  
+          <img 
+            class="img-fluid card-img-top" 
+            height="400" width="300"
+            src="{% static 'img/image-holder.png' %}"
+          >
+          <div class="card-body">           
+            <h5 class="card-title">Мороженое с кузнечиками</h5>
+            <p class="card-text">
+            <!-- Описание обрезано до первых 10ти слов -->
+              {{ ice_cream.description|truncatewords:10 }}
+            </p>
+            <!-- Ссылка на товар 1 -->
+            <a class="mt-3 regular-link" href="{% url 'ice_cream:ice_cream_detail' ice_cream.id %}">
+              Подробнее -->           
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <!-- Конец карточки товара 1 -->
+    <!-- Карточка товара 2 -->
+    {% if forloop.last %}
+      <div class="col-6 col-md-4 my-1">
+        <div class="card">                  
+          <img 
+            class="img-fluid card-img-top" 
+            height="400" width="300"
+            src="{% static 'img/image-holder.png' %}"
+          >
+          <div class="card-body">           
+            <h5 class="card-title">Мороженое со вкусом сыра чеддер</h5>
+            <p class="card-text">
+            <!-- Описание обрезано до первых 10ти слов -->
+              {{ ice_cream.description|truncatewords:10 }}
+            </p>
+            <!-- Ссылка на товар 2 -->
+            <a class="mt-3 regular-link" href="{% url 'ice_cream:ice_cream_detail' ice_cream.id %}">
+              Подробнее -->           
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+      <!-- Конец карточки товара 2 -->
+      <!-- Конец цикла  -->
+  </div>
+{% endblock %} 
